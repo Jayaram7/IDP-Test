@@ -1,0 +1,40 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: Base-Role-IAM-Automation
+  title: Automation for Base IAM Role Creation
+  description: A template to create a IAM Base Role for appCI
+  tags:
+    - iac
+    - automation
+spec:
+  title: Base Role Creation Automation
+  owner: name@company.io
+  type: service
+  # Edit the template parameters below to see how they will render in the scaffolder form UI
+  parameters:
+    - title: Let us know what you want to create
+      required:
+        - appCI
+        - techArea
+      properties:
+        techArea:
+          title: Select the TechArea
+          type: string
+          enum: ["AirportOps", "CustomerTechnology","Baggage-Cargo","N4C","TechOps"]
+        accountType:
+          title: Select the Account Type
+          type: string
+          enum: ["Hub", "MA","PCI_MA"]        
+        enviornmentName:
+          title: Select the environment
+          type: string
+          enum: ["Dev", "QA","Stg","Prd"]
+        permissionFile:
+          title: Browse the IAM Json File
+          type: string
+          format: data-url
+          "ui:enableMarkdownInDescription": true
+          "ui:description": "Provide the IAM Json File"
+          "ui:options":
+            accept: ".json"
