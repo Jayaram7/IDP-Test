@@ -8,7 +8,6 @@ metadata:
 spec:
   owner: backstage/techdocs-core
   type: service
-
   # these are the steps which are rendered in the frontend with the form input
   parameters:
     - title: Fill in some steps
@@ -33,7 +32,6 @@ spec:
           ui:options:
             allowedHosts:
               - github.com
-
   # here's the steps that are executed in series in the scaffolder backend
   steps:
     - id: fetch-base
@@ -43,14 +41,12 @@ spec:
         url: ./template
         values:
           name: '{{ parameters.name }}'
-
     - id: fetch-docs
       name: Fetch Docs
       action: fetch:plain
       input:
         targetPath: ./community
         url: https://github.com/backstage/community/tree/main/backstage-community-sessions
-
     - id: publish
       name: Publish
       action: publish:github
@@ -58,7 +54,6 @@ spec:
         allowedHosts: ['github.com']
         description: 'This is {{ parameters.name }}'
         repoUrl: '{{ parameters.repoUrl }}'
-
     - id: register
       name: Register
       action: catalog:register
