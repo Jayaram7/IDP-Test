@@ -3,20 +3,11 @@ kind: Template
 metadata:
   namespace: default
   annotations:
-    backstage.io/managed-by-location: file:/home/admin123/backstage0212/examples/template/template.yaml
-    backstage.io/managed-by-origin-location: file:/home/admin123/backstage0212/examples/template/template.yaml
-  name: example-nodejs-template
-  title: Example Node.js Template
+    backstage.io/managed-by-location: file:/home/admin123/backstage0212/jayaramtemplates/template.yaml
+    backstage.io/managed-by-origin-location: file:/home/admin123/backstage0212/jayaramtemplates/template.yaml
+  name: jayaramtemplates-demo1
+  title: jayaramtemplates-demo1
   description: An example template for the scaffolder that creates a simple Node.js service
-  uid: 995f77d4-eea2-442a-a28a-e1f732c4aca2
-  etag: ee67390cfd811e969c9da9be9e9eecf7aaf44de9
-relations:
-  - type: ownedBy
-    targetRef: user:default/guest
-    target:
-      kind: user
-      namespace: default
-      name: guest
 spec:
   owner: user:guest
   type: service
@@ -43,32 +34,3 @@ spec:
           ui:options:
             allowedHosts:
               - github.com
-  steps:
-    - id: fetch-base
-      name: Fetch Base
-      action: fetch:template
-      input:
-        url: ./content
-        values:
-          name: ${{ parameters.name }}
-    - id: publish
-      name: Publish
-      action: publish:github
-      input:
-        allowedHosts:
-          - github.com
-        description: This is ${{ parameters.name }}
-        repoUrl: ${{ parameters.repoUrl }}
-    - id: register
-      name: Register
-      action: catalog:register
-      input:
-        repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
-        catalogInfoPath: /catalog-info.yaml
-  output:
-    links:
-      - title: Repository
-        url: ${{ steps['publish'].output.remoteUrl }}
-      - title: Open in catalog
-        icon: catalog
-        entityRef: ${{ steps['register'].output.entityRef }}
